@@ -33,7 +33,6 @@ public class ClienteServiceImpl implements ClientService {
         }else {
             response.setResponseStatus(Constants.NO_DATA_CODE);
             response.setMessageStatus(Constants.NO_DATA_MESSAGE);
-            response.setClients(null);
         }
         return response;
     }
@@ -57,7 +56,6 @@ public class ClienteServiceImpl implements ClientService {
         }catch (Exception e){
             response.setResponseStatus(Constants.ERROR_CODE);
             response.setMessageStatus(Constants.ERROR_MESSAGE + e.getMessage());
-            response.setClient(null);
         }
         return response;
     }
