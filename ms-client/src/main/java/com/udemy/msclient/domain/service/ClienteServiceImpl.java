@@ -5,9 +5,11 @@ import com.udemy.msclient.common.Constants;
 import com.udemy.msclient.domain.model.request.GetClientRequest;
 import com.udemy.msclient.domain.model.request.GetClientsRequest;
 import com.udemy.msclient.domain.model.request.SaveClientRequest;
+import com.udemy.msclient.domain.model.request.UpdateClientRequest;
 import com.udemy.msclient.domain.model.response.GetClientResponse;
 import com.udemy.msclient.domain.model.response.GetClientsResponse;
 import com.udemy.msclient.domain.model.response.SaveClientResponse;
+import com.udemy.msclient.domain.model.response.UpdateClientResponse;
 import com.udemy.msclient.infrastructure.entity.Client;
 import com.udemy.msclient.infrastructure.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,5 +80,27 @@ public class ClienteServiceImpl implements ClientService {
             clientResponse.setMessageStatus(Constants.ERROR_MESSAGE + e.getMessage());
         }
         return clientResponse;
+    }
+
+    @Override
+    public UpdateClientResponse UpdateClient( UpdateClientRequest clientRequest) {
+        UpdateClientResponse response = new UpdateClientResponse();
+        try {
+            Client request =new Client();
+            request.setIdClient(clientRequest.getIdClient());
+            request.setName(clientRequest.getName());
+            request.setLastName(clientRequest.getLastName());
+            request.setPhone(clientRequest.getPhone());
+            request.setAddress(clientRequest.getAddress());
+            request.setEmail(clientRequest.getEmail());
+            request.setStatus(Constants.ONE_STRING);
+            response.setClient(clientRepository.save(request));
+            response.setResponseStatus(Constants.SUCCESS_CODE);
+            response.setMessageStatus(Constants.SUCCESS_MESSAGE);
+        }catch (Exception e){
+            response.setResponseStatus(Constants.ERROR_CODE);
+            response.setMessageStatus(Constants.ERROR_MESSAGE + e.getMessage());
+        }
+        return response;
     }
 }
